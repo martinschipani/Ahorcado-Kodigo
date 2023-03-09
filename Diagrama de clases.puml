@@ -1,0 +1,44 @@
+@startuml
+class Ahoracado {
+    + agregarAdivinable(adivinable: Adivinable)
+    + ingresarCasilla(casilla: Casilla)
+    + elegirAdivinable()
+    + perdido(): boolean
+    + ganado(): boolean
+}
+Ahoracado o- "*" Adivinable
+Ahoracado o- Agotable
+Ahoracado -> Adivinable
+Ahoracado ..> Casilla
+
+interface Adivinable {
+    adivinarCasilla(Casilla casilla): boolean
+    ganado(): boolean
+}
+Adivinable ..> Casilla
+
+class Palabra implements Adivinable {
+    - texto: String
+    - caracterCantidad: HashMap<String, Integer>
+    + Palabra(texto: String)
+}
+
+interface Casilla {
+    agotar()
+    estaAgotado(): boolean
+}
+
+class Letra implements Casilla {
+    - caracter: String
+    + Letra(caracter: String)
+}
+
+interface Agotable {
+    agotar()
+    estaAgotado(): boolean
+}
+
+class Vida implements Agotable {
+    - vidas: int
+}
+@enduml
